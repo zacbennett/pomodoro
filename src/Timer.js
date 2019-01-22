@@ -4,10 +4,11 @@ class Timer extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { minutes: 5, seconds: 0, timerId: 0, timerOn: false};
+    this.state = { minutes: this.props.minutes, seconds: 0, timerId: 0, timerOn: false};
     this.handleStart = this.handleStart.bind(this)
     this.handlePause = this.handlePause.bind(this)
     this.handleTimer = this.handleTimer.bind(this)
+    this.handleReset = this.handleReset.bind(this)
 
     
   }
@@ -46,6 +47,12 @@ class Timer extends Component {
     // },this.handleTimer());
   }
 
+  handleReset(){
+    this.setState((state) => {
+      return {minutes: this.props.minutes,seconds:0}
+    },this.handlePause())
+
+  }
   handlePause(){
     clearInterval(this.state.timerId)
     this.setState((state) => {
@@ -62,11 +69,13 @@ class Timer extends Component {
   render() {
     return (
       <div className="timer">
-        <h1>
+      <h1>{this.props.title}</h1>
+        <h2>
           {this.state.minutes}:{this.state.seconds}
-        </h1>
+        </h2>
         <button onClick={this.handleStart}>Start!</button>
         <button onClick={this.handlePause}>Pause!</button>
+        <button onClick={this.handleReset}>Reset!</button>
       </div>
     );
   }
