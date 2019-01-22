@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Timer from './Timer'
-import Tags from './Tags'
+import TagsSection from './TagsSection'
 
 
 class Pomodoro extends Component {
@@ -23,7 +23,7 @@ class Pomodoro extends Component {
       <div className="pomodoro">
         <Timer minutes={25} title='Work!'/>
         <Timer minutes={5} title='Break!'/>
-        <Tags listOfTags={this.state.listOfTags} addTag={this.addTag}/>
+        <TagsSection listOfTags={this.state.listOfTags} addTag={this.addTag}/>
       </div>
     );
   }

@@ -17,3 +17,5 @@ show stats for tags
 styling
   make it so that timer has two digits for minutes and seconds
 
+save tag data on local storage!
+

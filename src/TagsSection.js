@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import Tag from './Tag'
 
-
-class Tags extends Component {
+class TagsSection extends Component {
   constructor(props){
     super(props)
 
@@ -28,7 +28,7 @@ class Tags extends Component {
   render() {
 
     let listOfTags = this.props.listOfTags.map(function(item){
-      return <li key={item}>{item}</li>
+      return <li key={item}><Tag name={item}/></li>
     })
 
     return (
@@ -55,4 +55,4 @@ class Tags extends Component {
   }
 }
 
-export default Tags;
+export default TagsSection;
