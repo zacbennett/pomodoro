@@ -9,6 +9,8 @@ reset button!
 
 
 create tags
+edit tag
+remove tag
 assign tags to timer
 show stats for tags
 
