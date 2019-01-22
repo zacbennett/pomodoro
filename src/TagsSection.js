@@ -28,7 +28,7 @@ class TagsSection extends Component {
   render() {
 
     let listOfTags = this.props.listOfTags.map(function(item){
-      return <li key={item}><Tag name={item}/></li>
+      return <Tag name={item} key={item}/>
     })
 
     return (

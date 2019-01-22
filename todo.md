@@ -8,7 +8,7 @@ reset button!
 
 
 
-create tags
+create tags!
 edit tag
 remove tag
 assign tags to timer
