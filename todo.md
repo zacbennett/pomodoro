@@ -1,8 +1,11 @@
 timer for work!
 pause button!
+reset button
 
 timer for break
 pause button 
+reset button
+
 
 make it so that timer has two digits for minutes and seconds
 

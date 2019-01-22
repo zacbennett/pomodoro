@@ -4,7 +4,7 @@ class Timer extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { minutes: 0, seconds: 0, timerId: 0};
+    this.state = { minutes: 5, seconds: 0, timerId: 0, timerOn: false};
     this.handleStart = this.handleStart.bind(this)
     this.handlePause = this.handlePause.bind(this)
     this.handleTimer = this.handleTimer.bind(this)
@@ -13,23 +13,44 @@ class Timer extends Component {
   }
 
   handleTimer() {
-    let thisClass = this;
+    // prevents hitting the timer button multiple times
+    if(!this.state.timerOn){
+      let thisClass = this;
+  
+      // setInterval returns the timer id which we need in order to clear the timer
+      this.setState((state) => {
+        return {timerId: setInterval(function(){ 
+          if(thisClass.state.seconds === 0){
+            thisClass.setState((state) => {
+              return {minutes: state.minutes - 1,seconds: 59};
+            });
+          }else{
+            thisClass.setState((state) => {
+              return {seconds: state.seconds - 1};
+            });
+          }
+        }, 1000, thisClass)}
+      },this.setState((state) => {
+        return {timerOn: true}
+      })) 
+    }
+  }
 
+  
+
+  handleStart(){
+    this.handleTimer()
+    // this.setState((state) => {
+    //   // return {minutes: state.minutes + 1};
+    //   return {seconds: 10};
+    // },this.handleTimer());
+  }
+
+  handlePause(){
+    clearInterval(this.state.timerId)
     this.setState((state) => {
-      return {timerId: setInterval(function(){ 
-        if(thisClass.state.seconds === 0){
-          thisClass.setState((state) => {
-            return {minutes: state.minutes - 1,seconds: 59};
-          });
-        }else{
-          thisClass.setState((state) => {
-            return {seconds: state.seconds - 1};
-          });
-        }
-      }, 1000, thisClass)}
-    }) 
-
-
+      return {timerOn: false}
+    })
   }
 
   componentDidUpdate(){
@@ -37,21 +58,6 @@ class Timer extends Component {
       clearInterval(this.state.timerId)
     }
   }
-
-  handleStart(){
-    this.setState((state) => {
-      // return {minutes: state.minutes + 1};
-      return {seconds: 10};
-    },this.handleTimer());
-  }
-  handlePause(){
-    // console.log(typeof this.state.minutes)
-    console.log(':)')
-    clearInterval(this.state.timerId)
-
-  }
-
-  
 
   render() {
     return (
