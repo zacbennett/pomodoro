@@ -15,14 +15,18 @@ class Tag extends Component {
     this.setState({editTagInput: evt.target.value})
   }
 
-  handleDelete(){
-    this.props.deleteTag();
+  handleDelete(evt){
+    evt.preventDefault()
+    console.log('tag component')
+    this.props.deleteTag(this.props.name);
+    
   }
 
   handleEdit(evt){
     evt.preventDefault()
     this.props.editTag(this.state.editTagInput, this.props.name);
   }
+  
 
   showEdit(){
     this.setState((state) => {
@@ -35,7 +39,7 @@ class Tag extends Component {
       <input type="text" name="editTagInput" value={this.state.editTagInput} onChange={this.handleChange}/>
       <button onClick={this.handleEdit}>Save Changes</button>
     </form>)
-    
+
 
     return (
       <li className="tags" >

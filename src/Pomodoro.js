@@ -15,6 +15,7 @@ class Pomodoro extends Component {
 
     this.addTag = this.addTag.bind(this);
     this.editTag = this.editTag.bind(this);
+    this.deleteTag = this.deleteTag.bind(this);
   }
 
   addTag(newTag) {
@@ -24,7 +25,6 @@ class Pomodoro extends Component {
   }
 
   editTag(newTagName,oldTagName){
-    console.log(newTagName,oldTagName)
 
     let copyOfState = [...this.state.listOfTags]
 
@@ -33,15 +33,33 @@ class Pomodoro extends Component {
         elem.title = newTagName;
       }
     }
-    
+
     this.setState({listOfTags: copyOfState})
   }
+
+  deleteTag(tagName){
+    console.log('pomodoro component',tagName)
+
+    let copyOfState = [...this.state.listOfTags]
+    let indexToDelete;
+
+    copyOfState.forEach(function(item,index){
+      if(item.title === tagName){
+        indexToDelete = index;
+      }
+    })
+
+    copyOfState.splice(indexToDelete, 1)
+    console.log(indexToDelete)
+    this.setState({listOfTags: copyOfState})
+  }
+
   render() {
     return (
       <div className="pomodoro">
         <Timer minutes={25} title="Work!" />
         <Timer minutes={5} title="Break!" />
-        <TagsSection listOfTags={this.state.listOfTags} addTag={this.addTag} editTag={this.editTag} />
+        <TagsSection listOfTags={this.state.listOfTags} addTag={this.addTag} editTag={this.editTag} deleteTag={this.deleteTag}/>
       </div>
     );
   }

@@ -9,6 +9,7 @@ class TagsSection extends Component {
     this.handleAddTag = this.handleAddTag.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.editTag = this.editTag.bind(this);
+    this.deleteTag = this.deleteTag.bind(this);
   }
 
   handleChange(evt) {
@@ -17,6 +18,12 @@ class TagsSection extends Component {
 
   editTag(newTagName, oldTagName) {
     this.props.editTag(newTagName, oldTagName);
+  }
+
+  deleteTag(tagName) {
+    console.log('tag section component',tagName)
+
+    this.props.deleteTag(tagName);
   }
 
   handleAddTag(evt) {
@@ -31,7 +38,7 @@ class TagsSection extends Component {
 
   render() {
     let listOfTags = this.props.listOfTags.map(item => (
-      <Tag name={item.title} key={item.title} editTag={this.editTag} />
+      <Tag name={item.title} key={item.title} editTag={this.editTag} deleteTag={this.deleteTag}/>
     ));
 
     return (
