@@ -38,7 +38,6 @@ class Pomodoro extends Component {
   }
 
   deleteTag(tagName){
-    console.log('pomodoro component',tagName)
 
     let copyOfState = [...this.state.listOfTags]
     let indexToDelete;
@@ -50,14 +49,14 @@ class Pomodoro extends Component {
     })
 
     copyOfState.splice(indexToDelete, 1)
-    console.log(indexToDelete)
+
     this.setState({listOfTags: copyOfState})
   }
 
   render() {
     return (
       <div className="pomodoro">
-        <Timer minutes={25} title="Work!" />
+        <Timer minutes={1} title="Work!" listOfTags={this.state.listOfTags}/>
         <Timer minutes={5} title="Break!" />
         <TagsSection listOfTags={this.state.listOfTags} addTag={this.addTag} editTag={this.editTag} deleteTag={this.deleteTag}/>
       </div>

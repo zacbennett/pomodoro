@@ -19,7 +19,6 @@ class Tag extends Component {
     evt.preventDefault()
     console.log('tag component')
     this.props.deleteTag(this.props.name);
-    
   }
 
   handleEdit(evt){
