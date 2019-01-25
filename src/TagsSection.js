@@ -1,54 +1,55 @@
 import React, { Component } from 'react';
-import Tag from './Tag'
+import Tag from './Tag';
 
 class TagsSection extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
-    this.state = {tagInput: ''}
-    this.handleAddTag = this.handleAddTag.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-
+    this.state = { tagInput: '' };
+    this.handleAddTag = this.handleAddTag.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.editTag = this.editTag.bind(this);
   }
 
-  handleChange(evt){
-    this.setState({[evt.target.name]:evt.target.value})
+  handleChange(evt) {
+    this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  handleAddTag(evt){
-    evt.preventDefault()
+  editTag(newTagName, oldTagName) {
+    this.props.editTag(newTagName, oldTagName);
+  }
 
-    this.props.addTag(this.state.tagInput)
+  handleAddTag(evt) {
+    evt.preventDefault();
 
-    this.setState((state) => {
-      return {tagInput:''}
-    })
+    this.props.addTag(this.state.tagInput);
+
+    this.setState(state => {
+      return { tagInput: '' };
+    });
   }
 
   render() {
-
-    let listOfTags = this.props.listOfTags.map(function(item){
-      return <Tag name={item} key={item}/>
-    })
+    let listOfTags = this.props.listOfTags.map(item => (
+      <Tag name={item.title} key={item.title} editTag={this.editTag} />
+    ));
 
     return (
       <div className="tags">
         <h2>Select your tags below!</h2>
-        <ul>
-          {listOfTags}
-        </ul>
+        <ul>{listOfTags}</ul>
         <div>
           <form action="" onSubmit={this.handleAddTag}>
-          <label htmlFor="addtag-form">Add Tag</label>
-          <input
-            id="tagInput-text"
-            type="text"
-            name="tagInput"
-            onChange={this.handleChange}
-            value={this.state.tagInput}
-          />
-          <button>Submit Comment!</button>
-        </form>
+            <label htmlFor="addtag-form">Add Tag</label>
+            <input
+              id="tagInput-text"
+              type="text"
+              name="tagInput"
+              onChange={this.handleChange}
+              value={this.state.tagInput}
+            />
+            <button>Submit Comment!</button>
+          </form>
         </div>
       </div>
     );

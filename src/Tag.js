@@ -8,14 +8,20 @@ class Tag extends Component {
     this.handleDelete = this.handleDelete.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.showEdit = this.showEdit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(evt){
+    this.setState({editTagInput: evt.target.value})
   }
 
   handleDelete(){
     this.props.deleteTag();
   }
 
-  handleEdit(){
-    this.props.editTag();
+  handleEdit(evt){
+    evt.preventDefault()
+    this.props.editTag(this.state.editTagInput, this.props.name);
   }
 
   showEdit(){
@@ -25,7 +31,10 @@ class Tag extends Component {
   }
 
   render() {
-    let editForm = ':)'
+    let editForm = (<form>
+      <input type="text" name="editTagInput" value={this.state.editTagInput} onChange={this.handleChange}/>
+      <button onClick={this.handleEdit}>Save Changes</button>
+    </form>)
     
 
     return (
