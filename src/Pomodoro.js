@@ -57,7 +57,7 @@ class Pomodoro extends Component {
     return (
       <div className="pomodoro">
         <Timer minutes={1} title="Work!" listOfTags={this.state.listOfTags}/>
-        <Timer minutes={5} title="Break!" />
+        <Timer minutes={5} title="Break!" listOfTags={this.state.listOfTags} />
         <TagsSection listOfTags={this.state.listOfTags} addTag={this.addTag} editTag={this.editTag} deleteTag={this.deleteTag}/>
       </div>
     );
