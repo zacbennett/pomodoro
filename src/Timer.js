@@ -4,7 +4,7 @@ class Timer extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { minutes: this.props.minutes, seconds: 0, timerOn: false, currTag: ''};
+    this.state = { minutes: this.props.minutes, seconds: 0, timerOn: false, currTag: 'werq'};
     this.handleStart = this.handleStart.bind(this)
     this.handlePause = this.handlePause.bind(this)
     this.handleTimer = this.handleTimer.bind(this)
@@ -14,10 +14,23 @@ class Timer extends Component {
   }
 
   incrementTagTimer(){
+    let currTag = this.props.listOfTags.filter((item) => item.title === this.state.currTag)
+    let newMinutes;
+    let newSeconds;
 
+    if(currTag[0].seconds === 59){
+        newMinutes = currTag[0].minutes + 1;
+        newSeconds = 0;
+    }else{
+        newMinutes = currTag[0].minutes;
+        newSeconds = ++currTag[0].seconds;     
+    }
+
+    this.props.incrementTagTimer(this.state.currTag,newMinutes,newSeconds)
   }
   handleChange(evt) {
-    this.setState({ [evt.target.name]: evt.target.value });
+    // debugger;
+    this.setState({ currTag: evt.target.value });
   }
 
   handleTimer() {
@@ -72,7 +85,7 @@ class Timer extends Component {
 
   render() {
 
-    let selectTags = this.props.listOfTags.map(item => <option value={item.title} key={item.title}>{item.title}</option>)
+    let selectTags = this.props.listOfTags.map(item => <option value={item.title} key={item.title} name={item.title}>{item.title}</option>)
 
     return (
       <div className="timer">

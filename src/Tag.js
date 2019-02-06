@@ -39,10 +39,12 @@ class Tag extends Component {
       <button onClick={this.handleEdit}>Save Changes</button>
     </form>)
 
-
     return (
       <li className="tags" >
         {this.props.name}
+        <br/>
+        Minutes: {this.props.minutes}. Seconds: {this.props.seconds}.
+        <br/>
         <button onClick={this.showEdit}>Edit</button>
         <button onClick={this.handleDelete}>X</button>
         <br/>

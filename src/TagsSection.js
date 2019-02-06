@@ -21,7 +21,7 @@ class TagsSection extends Component {
   }
 
   deleteTag(tagName) {
-    console.log('tag section component',tagName)
+    console.log('tag section component', tagName);
 
     this.props.deleteTag(tagName);
   }
@@ -38,7 +38,14 @@ class TagsSection extends Component {
 
   render() {
     let listOfTags = this.props.listOfTags.map(item => (
-      <Tag name={item.title} key={item.title} editTag={this.editTag} deleteTag={this.deleteTag}/>
+      <Tag
+        name={item.title}
+        key={item.title}
+        editTag={this.editTag}
+        deleteTag={this.deleteTag}
+        minutes={item.minutes}
+        seconds={item.seconds}
+      />
     ));
 
     return (
