@@ -50,10 +50,8 @@ class TagsSection extends Component {
 
     return (
       <div className="tags">
-        <h2>Select your tags below!</h2>
-        <ul>{listOfTags}</ul>
-        <div>
-          <form action="" onSubmit={this.handleAddTag}>
+        <h2>Tags</h2>
+        <form action="" onSubmit={this.handleAddTag}>
             <label htmlFor="addtag-form">Add Tag</label>
             <input
               id="tagInput-text"
@@ -64,7 +62,12 @@ class TagsSection extends Component {
             />
             <button>Submit Comment!</button>
           </form>
+
+        <div>
+
+        <ul>{listOfTags}</ul>
         </div>
+        
       </div>
     );
   }
