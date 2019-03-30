@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Timer from './Timer';
 import TagsSection from './TagsSection';
+import './Pomodoro.css'
 
 class Pomodoro extends Component {
   constructor(props) {
@@ -69,9 +70,13 @@ class Pomodoro extends Component {
   render() {
     return (
       <div className="pomodoro">
-        <Timer minutes={1} title="Work!" listOfTags={this.state.listOfTags} incrementTagTimer={this.incrementTagTimer}/>
-        <Timer minutes={5} title="Break!" listOfTags={this.state.listOfTags} />
-        <TagsSection listOfTags={this.state.listOfTags} addTag={this.addTag} editTag={this.editTag} deleteTag={this.deleteTag}/>
+        <div id="timer-container">
+          <Timer minutes={1} title="Work!" listOfTags={this.state.listOfTags} incrementTagTimer={this.incrementTagTimer}/>
+          <Timer minutes={5} title="Break!" listOfTags={this.state.listOfTags} />
+        </div>
+        <div id="tags-container">
+          <TagsSection listOfTags={this.state.listOfTags} addTag={this.addTag} editTag={this.editTag} deleteTag={this.deleteTag}/>
+        </div>
       </div>
     );
   }
