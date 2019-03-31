@@ -1,54 +1,58 @@
 import React, { Component } from 'react';
+import EditTagForm from './EditTagForm';
 
 class Tag extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
-    this.state = {editTagInput: '', showEdit: false}
-    this.handleDelete = this.handleDelete.bind(this)
-    this.handleEdit = this.handleEdit.bind(this)
-    this.showEdit = this.showEdit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.state = { editTagInput: '', showEdit: false };
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.showEdit = this.showEdit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(evt){
-    this.setState({editTagInput: evt.target.value})
+  handleChange(evt) {
+    this.setState({ editTagInput: evt.target.value });
   }
 
-  handleDelete(evt){
-    evt.preventDefault()
-    console.log('tag component')
-    this.props.deleteTag(this.props.name);
+  handleDelete(evt) {
+    evt.preventDefault();
+
+    if (window.confirm('Are you sure you want to delete this tag?')) {
+      this.props.deleteTag(this.props.name);
+    }
   }
 
-  handleEdit(evt){
-    evt.preventDefault()
+  handleEdit(evt) {
+    evt.preventDefault();
     this.props.editTag(this.state.editTagInput, this.props.name);
   }
-  
 
-  showEdit(){
-    this.setState((state) => {
-      return {showEdit: !state.showEdit}
-    })
+  showEdit() {
+    this.setState(state => {
+      return { showEdit: !state.showEdit };
+    });
   }
 
   render() {
-    let editForm = (<form>
-      <input type="text" name="editTagInput" value={this.state.editTagInput} onChange={this.handleChange}/>
-      <button onClick={this.handleEdit}>Save Changes</button>
-    </form>)
 
     return (
-      <li className="tags" >
+      <li className="tags">
         {this.props.name}
-        <br/>
+        <br />
         Minutes: {this.props.minutes}. Seconds: {this.props.seconds}.
-        <br/>
+        <br />
         <button onClick={this.showEdit}>Edit</button>
         <button onClick={this.handleDelete}>X</button>
-        <br/>
-        {(this.state.showEdit ? editForm : null)}
+        <br />
+        {this.state.showEdit ? (
+          <EditTagForm 
+            editTagInput={this.state.editTagInput} 
+            handleChange={this.handleChange}
+            handleEdit={this.handleEdit}
+          />
+        ) : null}
       </li>
     );
   }
