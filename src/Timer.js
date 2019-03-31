@@ -6,6 +6,7 @@ class Timer extends Component {
 
     this.state = {
       minutes: 25,
+      defMins: 25,
       seconds: 0,
       timerOn: false,
       currTag: 'werq',
@@ -17,6 +18,8 @@ class Timer extends Component {
     this.handleReset = this.handleReset.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.closeEditForm = this.closeEditForm.bind(this);
+    this.handleTimerChange = this.handleTimerChange.bind(this);
     this.timerId = null;
   }
 
@@ -37,9 +40,10 @@ class Timer extends Component {
 
     this.props.incrementTagTimer(this.state.currTag, newMinutes, newSeconds);
   }
-  // handleChange(evt) {
-  //   this.setState({ currTag: evt.target.value });
-  // }
+
+  closeEditForm() {
+    this.setState({ showEdit: false });
+  }
 
   handleTimer() {
     // prevents hitting the timer button multiple times
@@ -66,18 +70,28 @@ class Timer extends Component {
   }
 
   handleStart() {
+    this.closeEditForm();
     this.handleTimer();
   }
 
   handleReset() {
+    this.closeEditForm();
+
     this.setState(state => {
-      return { minutes: this.props.minutes, seconds: 0 };
+      return { minutes: this.state.defMins, seconds: 0 };
     }, this.handlePause());
   }
+
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
   }
+
+  handleTimerChange(evt) {
+    this.setState({ defMins: evt.target.value, minutes: evt.target.value });
+  }
+
   handlePause() {
+    this.closeEditForm();
     clearInterval(this.timerId);
     this.setState(state => {
       return { timerOn: false };
@@ -115,15 +129,21 @@ class Timer extends Component {
           <input
             type="number"
             value={this.state.minutes}
-            onChange={this.handleChange}
+            name="minutes"
+            onChange={this.handleTimerChange}
           />
         ) : null}
 
         <br />
-        <h4>Watcha working on? :)</h4>
+        {this.props.title === 'Work!' ? (
+          <h4>Watcha working on? :)</h4>
+        ) : (
+          <h4>Watcha breaking on? :)</h4>
+        )}
+        
         <select
           value={this.state.currTag}
-          name={'currTag'}
+          name="currTag"
           onChange={this.handleChange}
         >
           {selectTags}
