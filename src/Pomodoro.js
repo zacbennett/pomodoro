@@ -82,13 +82,11 @@ class Pomodoro extends Component {
       <div className="pomodoro">
         <div id="timer-container">
           <Timer
-            minutes={1}
             title="Work!"
             listOfTags={this.state.listOfTags}
             incrementTagTimer={this.incrementTagTimer}
           />
           <Timer
-            minutes={5}
             title="Break!"
             listOfTags={this.state.listOfTags}
           />
