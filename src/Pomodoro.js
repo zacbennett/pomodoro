@@ -8,10 +8,7 @@ class Pomodoro extends Component {
     super(props);
 
     this.state = {
-      listOfTags: [
-        { title: 'werq', minutes: 5, seconds: 59 },
-        { title: 'code', minutes: 1, seconds: 30 }
-      ]
+      listOfTags: JSON.parse(localStorage.getItem('listOfTags')) || []
       // listOfTags: {
       //   'werq': { title: 'werq', minutes: 5, seconds: 59 },
       //   'code': { title: 'code', minutes: 1, seconds: 30 }
@@ -19,6 +16,7 @@ class Pomodoro extends Component {
     };
 
     this.addTag = this.addTag.bind(this);
+    this.saveTags = this.saveTags.bind(this);
     this.editTag = this.editTag.bind(this);
     this.deleteTag = this.deleteTag.bind(this);
     this.incrementTagTimer = this.incrementTagTimer.bind(this);
@@ -35,6 +33,10 @@ class Pomodoro extends Component {
     });
   }
 
+  saveTags() {
+    localStorage.setItem('listOfTags', JSON.stringify(this.state.listOfTags));
+  }
+
   incrementTagTimer(tagName, newMinutes, newSeconds) {
     let copyOfState = [...this.state.listOfTags];
 
@@ -46,8 +48,6 @@ class Pomodoro extends Component {
     }
 
     this.setState({ listOfTags: copyOfState });
-
-    // this.setState({listOfTags})
   }
 
   editTag(newTagName, oldTagName) {
@@ -86,11 +86,10 @@ class Pomodoro extends Component {
             listOfTags={this.state.listOfTags}
             incrementTagTimer={this.incrementTagTimer}
           />
-          <Timer
-            title="Break!"
-            listOfTags={this.state.listOfTags}
-          />
+          <Timer title="Break!" listOfTags={this.state.listOfTags} />
         </div>
+        <button onClick={this.saveTags}>Save your progress for today?</button>
+
         <div id="tags-container">
           <TagsSection
             listOfTags={this.state.listOfTags}
